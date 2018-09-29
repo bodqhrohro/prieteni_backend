@@ -1,0 +1,5 @@
+*.sw?
+*.sqlite3
+.fuse_hidden*
+.env
+*.pyc
