@@ -10,4 +10,4 @@ class User(models.Model):
     password = models.CharField(max_length=100)
     location = models.TextField()
     bio = models.TextField()
-    avatar = models.ImageField()
+    avatar = models.ImageField(null=True, blank=True)
