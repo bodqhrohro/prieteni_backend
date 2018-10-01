@@ -3,3 +3,5 @@
 .fuse_hidden*
 .env
 *.pyc
+tox.ini
+.ropeproject
