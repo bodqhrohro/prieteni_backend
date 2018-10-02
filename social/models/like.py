@@ -13,3 +13,12 @@ class Like(models.Model):
         'User',
         on_delete=models.CASCADE,
     )
+
+    class Meta:
+        unique_together = ('post', 'user')
+
+    def set_like(self, post, user):
+        self.create(post=post, user=user)
+
+    def unlike(self, post, user):
+        self.objects.filter(post=post, user=user).delete()
