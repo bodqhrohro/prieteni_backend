@@ -8,6 +8,6 @@ class User(models.Model):
     name = models.TextField()
     email = models.EmailField()
     password = models.CharField(max_length=100)
-    location = models.TextField()
-    bio = models.TextField()
+    location = models.TextField(default='')
+    bio = models.TextField(default='')
     avatar = models.ImageField(null=True, blank=True)
