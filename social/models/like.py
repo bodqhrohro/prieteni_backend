@@ -17,6 +17,9 @@ class Like(models.Model):
     class Meta:
         unique_together = ('post', 'user')
 
+    def __str__(self):
+        return '%s liked %s' % (self.user, self.post)
+
     def set_like(self, post, user):
         self.create(post=post, user=user)
 

@@ -11,3 +11,6 @@ class User(models.Model):
     location = models.TextField(default='')
     bio = models.TextField(default='')
     avatar = models.ImageField(null=True, blank=True)
+
+    def __str__(self):
+        return '%s <%s>' % (self.name, self.email)
