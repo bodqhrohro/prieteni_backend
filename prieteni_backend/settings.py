@@ -69,6 +69,10 @@ TEMPLATES = [
     },
 ]
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]
+
 WSGI_APPLICATION = 'prieteni_backend.wsgi.application'
 
 

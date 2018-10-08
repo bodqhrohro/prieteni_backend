@@ -1,3 +1,4 @@
 django<=1.11
 djangorestframework
 pillow
+argon2-cffi

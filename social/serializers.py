@@ -6,7 +6,11 @@ from rest_framework import serializers
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'name', 'email', 'password', 'location', 'bio', 'avatar')
+        fields = ('id', 'name', 'email', 'password', 'location', 'bio',
+                  'avatar')
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):

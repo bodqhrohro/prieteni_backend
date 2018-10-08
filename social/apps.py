@@ -6,3 +6,8 @@ from django.apps import AppConfig
 
 class SocialConfig(AppConfig):
     name = 'social'
+
+    def ready(self):
+        super(SocialConfig, self).ready()
+
+        import social.signals
