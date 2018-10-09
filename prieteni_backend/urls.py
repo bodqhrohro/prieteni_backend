@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from social.urls import router as social_router
+from social.urls import router as social_router, \
+    user_router as social_user_router
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(social_router.urls)),
+    url(r'^', include(social_user_router.urls)),
 ]
