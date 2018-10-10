@@ -13,6 +13,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class UserSerializerMini(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'name', 'avatar')
+
+
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
@@ -20,7 +26,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class LikeSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer(many=False, read_only=True)
+    user = UserSerializerMini(read_only=True)
 
     class Meta:
         model = Like
