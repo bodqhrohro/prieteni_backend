@@ -17,10 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from social.urls import router as social_router, \
-    user_router as social_user_router
+    user_router as social_user_router, \
+    post_router as social_post_router
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(social_router.urls)),
     url(r'^', include(social_user_router.urls)),
+    url(r'^', include(social_post_router.urls)),
 ]

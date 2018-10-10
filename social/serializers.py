@@ -1,4 +1,4 @@
-from .models import User, Post
+from .models import User, Post, Like
 
 from rest_framework import serializers
 
@@ -17,3 +17,11 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'title', 'body', 'owner')
+
+
+class LikeSerializer(serializers.HyperlinkedModelSerializer):
+    user = UserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Like
+        fields = ('id', 'user')
