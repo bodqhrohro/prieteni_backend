@@ -3,3 +3,4 @@ djangorestframework
 pillow
 argon2-cffi
 drf-nested-routers
+djangorestframework-jwt

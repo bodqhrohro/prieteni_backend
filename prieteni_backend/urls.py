@@ -20,9 +20,14 @@ from social.urls import router as social_router, \
     user_router as social_user_router, \
     post_router as social_post_router
 
+from social.views import ObtainJWTView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
     url(r'^', include(social_router.urls)),
     url(r'^', include(social_user_router.urls)),
     url(r'^', include(social_post_router.urls)),
+
+    url(r'^api-token-auth', ObtainJWTView.as_view()),
 ]

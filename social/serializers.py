@@ -20,6 +20,8 @@ class UserSerializerMini(serializers.HyperlinkedModelSerializer):
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
+    owner = UserSerializerMini(read_only=True)
+
     class Meta:
         model = Post
         fields = ('id', 'title', 'body', 'owner')
