@@ -20,8 +20,10 @@ class Like(models.Model):
     def __str__(self):
         return '%s liked %s' % (self.user, self.post)
 
-    def set_like(self, post, user):
-        self.create(post=post, user=user)
+    @staticmethod
+    def set_like(post, user):
+        return Like.objects.create(post=post, user=user)
 
-    def unlike(self, post, user):
-        self.objects.filter(post=post, user=user).delete()
+    @staticmethod
+    def unlike(post, user):
+        Like.objects.filter(post=post, user=user).delete()

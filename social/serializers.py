@@ -1,6 +1,6 @@
 from .models import User, Post, Like
 
-from rest_framework import serializers, exceptions
+from rest_framework import serializers
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -27,12 +27,12 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'title', 'body', 'owner')
 
     def save(self, **kwargs):
-        if not self.context['request'].user \
-                or not isinstance(self.context['request'].user, User):
-            raise exceptions.NotAcceptable(
-                'You\'re trying to post as wrong user. Don\'t do that')
+        user = self.context['request'].user
 
-        self.validated_data['owner'] = self.context['request'].user
+        from social.auth import assert_user_model
+        assert_user_model(user)
+
+        self.validated_data['owner'] = user
 
         return super(PostSerializer, self).save(**kwargs)
 

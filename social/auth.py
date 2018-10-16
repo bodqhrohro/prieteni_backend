@@ -8,6 +8,8 @@ from django.test import override_settings
 
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
+from rest_framework import exceptions
+
 AUTH_USER_MODEL = 'social.User'
 
 
@@ -52,3 +54,9 @@ class SocialUserBackend:
             else:
                 return PermissionDenied('Wrong password')
         return None
+
+
+def assert_user_model(user):
+    if not user or not isinstance(user, User):
+        raise exceptions.NotAcceptable(
+            'You\'re trying to post as wrong user. Don\'t do that')

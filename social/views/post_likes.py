@@ -7,7 +7,7 @@ from social.models import Like
 from social.serializers import LikeSerializer
 
 
-class PostLikeViewSet(viewsets.ModelViewSet):
+class PostLikeViewSet(viewsets.ReadOnlyModelViewSet):
     """API endpoint for accessing posts."""
 
     def get_queryset(self):
