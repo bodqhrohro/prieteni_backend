@@ -52,7 +52,7 @@ class SocialUserBackend:
                 )
                 return django_user
             else:
-                return PermissionDenied('Wrong password')
+                raise PermissionDenied('Wrong password')
         return None
 
 
