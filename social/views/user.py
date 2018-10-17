@@ -12,3 +12,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['partial'] = True
+        return super(UserViewSet, self).get_serializer(*args, **kwargs)

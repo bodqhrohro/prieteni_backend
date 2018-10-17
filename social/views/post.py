@@ -20,6 +20,10 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def get_serializer(self, *args, **kwargs):
+        kwargs['partial'] = True
+        return super(PostViewSet, self).get_serializer(*args, **kwargs)
+
     @action(methods=['post', 'delete'], detail=True)
     def like(self, request, pk=None):
         assert_user_model(request.user)
