@@ -51,3 +51,10 @@ User fields:
 API-Token-Auth fields:
 * username (email only, as names are allowed to conflict)
 * password
+
+Authorization
+=============
+For queries that require authorization, provide an `Authorization` header with a JWT token, like:
+```
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRpc3QiLCJ1c2VyX2lkIjo4LCJlbWFpbCI6InRpc3RAdGkuc3QiLCJleHAiOjE1Mzk4Njk1OTh9.sCqnPATy8R1FgNtaQBfh06hnAeWEV89qEt9LXdFKtG4
+```
