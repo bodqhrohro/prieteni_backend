@@ -2,15 +2,31 @@
 from __future__ import unicode_literals
 
 from rest_framework import status, viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from social.models import Post, Like
 from social.serializers import PostSerializer, LikeSerializer
-from social.auth import assert_user_model
+from social.auth import assert_user_model, is_user_model
 
 from django.db.utils import IntegrityError
+
+
+class PostPermission(BasePermission):
+    def _can_create(self, request, view):
+        return True
+
+    def _can_change(self, request, view):
+        return request.user.pk == view.get_object().owner.pk
+
+    def has_permission(self, request, view):
+        return (
+            request.method in SAFE_METHODS or
+            is_user_model(request.user) and
+            (self._can_create(request, view) if request.method == 'POST' else
+                self._can_change(request, view))
+        )
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -18,7 +34,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (PostPermission,)
 
     def get_serializer(self, *args, **kwargs):
         kwargs['partial'] = True

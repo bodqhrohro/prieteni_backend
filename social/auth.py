@@ -56,7 +56,11 @@ class SocialUserBackend:
         return None
 
 
+def is_user_model(user):
+    return user and isinstance(user, User)
+
+
 def assert_user_model(user):
-    if not user or not isinstance(user, User):
+    if not is_user_model(user):
         raise exceptions.NotAcceptable(
             'You\'re trying to post as wrong user. Don\'t do that')
