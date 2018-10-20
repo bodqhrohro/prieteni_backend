@@ -4,3 +4,7 @@ pillow
 argon2-cffi
 drf-nested-routers
 djangorestframework-jwt
+
+fake-data
+pagan
+requests
