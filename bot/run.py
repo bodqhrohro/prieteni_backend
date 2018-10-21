@@ -88,6 +88,16 @@ def generate_posts(count, token):
     return posts
 
 
+def generate_likes(count, token, posts):
+    posts_to_like = random.sample(posts, count)
+    for post_id in posts_to_like:
+        result = requests.post(
+            ENDPOINT + ('posts/%s/like/' % post_id), headers={
+                'Authorization': 'JWT ' + token,
+            })
+        check_result(result, 'Liked post %s' % post_id)
+
+
 script_directory = os.path.dirname(os.path.abspath(__file__))
 
 ENDPOINT = sys.argv[1]
@@ -103,4 +113,8 @@ with open(script_directory + '/config.json', 'r') as config_file:
     posts = []
     for token in tokens:
         posts += generate_posts(random.randint(1, config['max_posts_per_user']),
-                               token)
+                                token)
+
+    max_likes_per_user = min(config['max_likes_per_user'], len(posts))
+    for token in tokens:
+        generate_likes(random.randint(0, max_likes_per_user), token, posts)
