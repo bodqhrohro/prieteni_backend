@@ -53,7 +53,9 @@ def generate_users(count):
     return users
 
 
-def generate_posts(max_count, users):
+def obtain_tokens(users):
+    tokens = []
+
     for email, password in users:
         result = requests.post(ENDPOINT + 'api-token-auth/', data={
             'username': email,
@@ -61,8 +63,29 @@ def generate_posts(max_count, users):
         })
         result = check_result(result, 'Authenticated as ' + email)
         if result:
-            token = result.json()['token']
-            print(token)
+            tokens.append(result.json()['token'])
+
+    return tokens
+
+
+def generate_posts(count, token):
+    posts = []
+
+    for i in range(count):
+        title = fake.title()
+        body = fake.text()
+
+        result = requests.post(ENDPOINT + 'posts/', data={
+            'title': title,
+            'body': body,
+        }, headers={
+            'Authorization': 'JWT ' + token,
+        })
+        result = check_result(result, 'Created post "%s"' % title)
+        if result:
+            posts.append(result.json()['id'])
+
+    return posts
 
 
 script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -75,4 +98,9 @@ with open(script_directory + '/config.json', 'r') as config_file:
     config = json.load(config_file)
 
     users = generate_users(config['number_of_users'])
-    posts = generate_posts(config['max_posts_per_user'], users)
+    tokens = obtain_tokens(users)
+
+    posts = []
+    for token in tokens:
+        posts += generate_posts(random.randint(1, config['max_posts_per_user']),
+                               token)
