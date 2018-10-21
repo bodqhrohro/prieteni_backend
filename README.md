@@ -58,3 +58,7 @@ For queries that require authorization, provide an `Authorization` header with a
 ```
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRpc3QiLCJ1c2VyX2lkIjo4LCJlbWFpbCI6InRpc3RAdGkuc3QiLCJleHAiOjE1Mzk4Njk1OTh9.sCqnPATy8R1FgNtaQBfh06hnAeWEV89qEt9LXdFKtG4
 ```
+
+Bot
+===
+API is supplied with a demo bot. Execute `python bot/run.py http://api.endpoint.url/` to try it. It may be run on both empty and existing database, but won't clean the mess left by it.
